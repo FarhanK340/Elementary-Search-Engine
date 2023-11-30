@@ -1,6 +1,8 @@
 import json
 import string
 import nltk
+import regex
+import unicodedata
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
@@ -12,7 +14,15 @@ def create_forward_indexing(json_data):
     def remove_special_characters(text):
         text = text.encode('ascii','ignore').decode('utf-8')
         text = text.replace('\\', '').encode('utf-8', errors='ignore').decode('unicode_escape')
-
+        # Additions below to remove unicode characters
+            # Remove non-alphanumeric characters (excluding spaces)
+                # Remove non-alphanumeric characters (excluding spaces and Unicode punctuation)
+        text = regex.sub(r'[^a-zA-Z0-9\s\p{P}]+', '', text)
+        text = regex.sub(r'[^\w\s]', '', text)
+        # text = re.sub(r'[^a-zA-Z0-9\s]', '', text)
+        # Normalize Unicode characters
+        text = unicodedata.normalize('NFKD', text).encode('ascii', 'ignore').decode('utf-8')  
+         
         return text; 
 
     def remove_stopwords(text):
@@ -24,9 +34,7 @@ def create_forward_indexing(json_data):
 
     json_data = json_data.replace('@', '')
     json_data = json_data.replace('\n', '')
-    # Remove backslashes and handle special characters
 
-    # Assuming your JSON data is stored in a variable called json_data
     try:
         python_data = json.loads(json_data)
     except json.decoder.JSONDecodeError as e:
@@ -34,8 +42,8 @@ def create_forward_indexing(json_data):
         print("Problematic JSON data:", repr(json_data[e.pos - 15:e.pos + 15]))
         raise e
 
-    # Load JSON data into a Python list
-    python_data = json.loads(json_data)
+    # # Load JSON data into a Python list
+    # python_data = json.loads(json_data)
 
     # Function to remove punctuation marks
     def removePunc(mystr):
@@ -50,15 +58,16 @@ def create_forward_indexing(json_data):
 
     # Function for tokenization of an article etc.
     def tokenize(article):
+        
         article_id = article["id"]
         content = article["content"]
-        author = article["author"]
+        author = article["author"]       
 
         # Tokenize content
         content = remove_special_characters(content)
         content = remove_stopwords(content)  # Removes stopwords
         content = removePunc(content)
-        content_tokens = stemming(nltk.word_tokenize(content))   # Remove duplicate tokens
+        content_tokens = stemming(nltk.word_tokenize(content)) 
 
         # Tokenize author
         author_tokens = set(nltk.word_tokenize(author))  # Remove duplicate tokens
@@ -73,7 +82,10 @@ def create_forward_indexing(json_data):
             "doc_id": article["id"],
             "content_tokens": content_tokens,
             "author_tokens": author_tokens,
-            "article_id_tokens": article_id_mod_tokens
+            "article_id_tokens": article_id_mod_tokens,
+            "title": article["title"],
+            "url": article["url"]
+            
         }
 
     # Create a forward index
@@ -98,6 +110,9 @@ def create_forward_indexing(json_data):
     for article in python_data:
         entry = tokenize(article)
 
+        # Add title and URL to the entry
+        entry["title"] = article["title"]
+        entry["url"] = article["url"]
         # Combine content tokens and article ID tokens into a single list
         # combined_tokens = list(entry["content_tokens"]) + list(entry["article_id_tokens"])
 
@@ -110,7 +125,13 @@ def create_forward_indexing(json_data):
 
         # Map the combined tokens to the document ID
         # forward_index[doc_id] = combined_tokens
-        forward_index[doc_id] = dict(word_frequencies)
+        # forward_index[doc_id] = dict(word_frequencies)
+        # Include title and URL along with word frequencies in the forward index
+        forward_index[doc_id] = {
+            "title": article["title"],
+            "url": article["url"],
+            "word_frequencies": dict(word_frequencies)
+        }
 
     counter_file_path = "counter_id.txt"
     with open(counter_file_path, 'w') as text_file:
@@ -134,22 +155,23 @@ def create_forward_indexing(json_data):
             existing_data[doc_id].update(word_freq)
         else:
             existing_data[doc_id] = word_freq
-    # existing_data.update(forward_index)
 
     # Write back to the JSON file
     with open(json_file_path, 'w') as json_file:
         json.dump(existing_data, json_file, indent=4)
+        
+    # # Print the forward index for checking purposes
+    # for doc_id, entry in forward_index.items():
+    #     print(f"Document ID: {doc_id}")
+    #     print(f"Title: {entry['title']}")
+    #     print(f"URL: {entry['url']}")
+    #     print("Word Frequencies:")
+    #     for word, frequency in entry['word_frequencies'].items():
+    #         print(f"{word}: {frequency}")
+    #     print("\n")
 
 def load_and_format_json(file_path):
-    """
-    Load JSON data from a file and format it within triple quotes.
-    
-    Parameters:
-    - file_path (str): Path to the JSON file.
-    
-    Returns:
-    - str: Formatted JSON data within triple quotes.
-    """
+
     if not file_path.endswith('.json'):
         print("Error: The file is not a JSON file.")
         return None
@@ -163,13 +185,13 @@ def load_and_format_json(file_path):
         return None
 
     formatted_data = json.dumps(json_data, indent=4, ensure_ascii=False)
-    triple_quoted_data = '"""' + formatted_data + '"""'
+    # triple_quoted_data = '"""' + formatted_data + '"""'
     
-    return triple_quoted_data
+    return formatted_data
+    # return json_data
 
+file_path = "D:\\CODE RLTed\\DSA Project\\New CLone\\DSA-project\\911truthorg.json"
 
-# file_path = "C:\\Users\\najam\\project pange\\DSA-project\\911truthorg.json"
-
-# json_data = load_and_format_json(file_path)
+json_data = load_and_format_json(file_path)
 
 create_forward_indexing(json_data)
