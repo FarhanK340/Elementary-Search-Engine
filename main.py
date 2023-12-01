@@ -86,7 +86,7 @@ def create_forward_indexing(json_data):
     # Create a forward index
     forward_index = {}
 
-    counter_file_path = "counter_id.txt"
+    counter_file_path = "counter_id_2.txt"
 
     # Check if the counter file exists
     try:
@@ -168,12 +168,33 @@ def load_and_format_json(file_path):
     
     return formatted_data
 
+# Chnage the path to folder where the JSON files are
 folder_path = "D:\\CODE RLTed\\DSA Project\\New CLone\\DSA-project\\JSON"
+
+all_json_data = []
 
 # Iterate over all files in the folder
 for filename in os.listdir(folder_path):
     if filename.endswith(".json"):
         file_path = os.path.join(folder_path, filename)
-        json_data = load_and_format_json(file_path)
-        create_forward_indexing(json_data)
+        try:
+            with open(file_path, 'r') as file:
+                file_data = json.load(file)
+                all_json_data.extend(file_data)
+        except FileNotFoundError:
+            print("File not found: {file_path}")
+        except json.decoder.JSONDecodeError as e:
+            print(f"Error decoding JSON in file {file_path}: {e}")
 
+file_path = "concatenated_json_data.json"
+
+# For storing the concatenated JSON files
+with open(file_path, 'w') as file:
+    json.dump(all_json_data, file, indent=4)
+
+concatenated_json_data = json.dumps(all_json_data)
+
+# # No need if concatenating and passing the one combined JSON file
+# json_data = load_and_format_json(concatenated_json_data)
+
+create_forward_indexing(concatenated_json_data)
