@@ -176,3 +176,4 @@ for filename in os.listdir(folder_path):
         file_path = os.path.join(folder_path, filename)
         json_data = load_and_format_json(file_path)
         create_forward_indexing(json_data)
+
