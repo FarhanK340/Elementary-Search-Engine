@@ -20,4 +20,3 @@ file_name='output2.json'
 word_from_user= input("Enter the word you want to search: ")
 search_word(file_name, word_from_user)
      
-       
