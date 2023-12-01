@@ -6,8 +6,6 @@ from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 from itertools import count
 
-
-
 def create_word_index(input_file,output_file):
     with open(input_file,'r') as f:
         json_data=json.load(f)
@@ -24,7 +22,6 @@ def create_word_index(input_file,output_file):
         
     with open(output_file,'w') as f:
      json.dump(word_ids,f,indent=2)
-        
         
 input_file='forward_index_2.json'
 output_file='output2.json'
