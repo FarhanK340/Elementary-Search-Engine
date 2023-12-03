@@ -86,7 +86,7 @@ def create_forward_indexing(json_data):
     # Create a forward index
     forward_index = {}
 
-    counter_file_path = "counter_id_2.txt"
+    counter_file_path = "counter_id.txt"
 
     # Check if the counter file exists
     try:
