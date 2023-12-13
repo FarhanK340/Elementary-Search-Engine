@@ -31,7 +31,7 @@ def create_word_index(input_file,output_file):
                         "url": data.get("url", "")      # Include url
                  }]
 
-# Writing the modified reverse index to the output file
+# # Writing the modified reverse index to the output file
     with open(output_file, 'w') as f:
         json.dump(word_id, f, indent=2)
       #here we are providing the input_file and also the output_file which can vary with the device that 
@@ -40,6 +40,23 @@ input_file='forward_index.json'
 output_file='output.json'
 create_word_index(input_file, output_file)
 
+def quicksort(arr):
+    if len(arr) <= 1:
+        return arr
+    pivot = arr[len(arr) // 2]['frequency']
+    left = [x for x in arr if x['frequency'] > pivot]
+    middle = [x for x in arr if x['frequency'] == pivot]
+    right = [x for x in arr if x['frequency'] < pivot]
+    return quicksort(left) + middle + quicksort(right)
 
+with open('output.json', 'r') as f:
+    data = json.load(f)
+
+# Sort the data based on the "frequency" attribute within each dictionary
+sorted_data = {word: quicksort(docs) for word, docs in data.items()}
+
+# Save the sorted data to a new file
+with open('sorted_output.json', 'w') as f:
+    json.dump(sorted_data, f, indent=2)
 
       
