@@ -1,12 +1,4 @@
 import json
-import string
-import nltk
-from nltk.tokenize import word_tokenize
-from nltk.corpus import stopwords
-from nltk.stem import PorterStemmer
-from itertools import count
-
-
      
 def create_word_index(input_file,output_file):
     # opening and reading the file

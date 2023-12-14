@@ -1,12 +1,5 @@
 import json
-import json
-import string
-import nltk
 import timeit
-from nltk.tokenize import word_tokenize
-from nltk.corpus import stopwords
-from nltk.stem import PorterStemmer
-from itertools import count
 
 
 def search_word(forward_index, reverse_index,word_from_user):
