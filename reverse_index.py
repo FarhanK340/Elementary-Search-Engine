@@ -12,15 +12,15 @@ def create_word_index(input_file,output_file):
                 word_id[word].append({
                         "doc_id": int(doc_id),
                         "frequency": frequency,
-                        "title": data.get("title", ""),  # Include title
-                        "url": data.get("url", "")      # Include url
+                        # "title": data.get("title", ""),  # Include title
+                        # "url": data.get("url", "")      # Include url
                  })
             else:
                  word_id[word] = [{
                         "doc_id": int(doc_id),
                         "frequency": frequency,
-                        "title": data.get("title", ""),  # Include title
-                        "url": data.get("url", "")      # Include url
+                        # "title": data.get("title", ""),  # Include title
+                        # "url": data.get("url", "")      # Include url
                  }]
 
 # # Writing the modified reverse index to the output file
@@ -50,5 +50,3 @@ sorted_data = {word: quicksort(docs) for word, docs in data.items()}
 # Save the sorted data to a new file
 with open('sorted_output.json', 'w') as f:
     json.dump(sorted_data, f, indent=2)
-
-      
