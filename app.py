@@ -27,9 +27,10 @@ def add():
 @app.route('/added', methods=['POST'])
 def added():
     file_path = request.form['file_path']
+    print(file_path)
     if file_path:
         # Execute your Python script with the provided folder path
-        new_forward_index = forward_index_alt.add_forward_index_through_folder(file_path)
+        new_forward_index = forward_index_alt.add_forward_index_through_single_json_file(file_path)
 
         if new_forward_index is not None:
             with open('new_forward_index.json', 'w') as nf:
