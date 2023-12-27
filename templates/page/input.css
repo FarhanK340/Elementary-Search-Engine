@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities{
+
+    .border-as{
+        /* background-image: linear-gradient(to right, #99e4ff, #aee7ff, #c1e9ff, #d1edff, #e0f0ff, #e0f0ff, #e0f0ff, #e0f0ff, #d1edff, #c1e9ff, #aee7ff, #99e4ff); */
+        background-image: linear-gradient(to right, #72b3ff, #81bafe, #8fc2fd, #9dc9fc, #abd0fb, #abd0fb, #abd0fb, #abd0fb, #9dc9fc, #8fc2fd, #81bafe, #72b3ff);
+    }
+
+    .bg-img{
+        background-image: url(./img/bg-img2.jpg);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+    }
+
+    #article{
+        margin-bottom: 8px;
+    }
+
+    .form-grid{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 15px 30px;
+        margin-top: 20px;
+    }
+
+    .form-input-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .form-input-label
+{
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-input
+{
+    width: 100%;
+    border-radius: 4px;
+}
+
+.form-input-submit
+{
+    cursor: pointer;
+    border-radius:  4px;
+    font-size: 0.9rem;
+    transition: all 0.25s ease-out;
+}
+
+.form-input-submit:hover{
+    opacity: 0.85;
+}
+
+.col-span-2
+{
+    grid-column: span 2 / span 2;
+}
+
+}

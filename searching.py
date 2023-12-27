@@ -80,7 +80,7 @@ def search_word(word_from_user):
         #             clickable_title = f"\033]8;;{url}\033\\{title}\033]8;;\033\\"
         #             print(f"  Doc ID {doc_id}: {clickable_title}, Frequency: {frequency}")
 
-
+final_results = []
 def query_search(words_from_user):
     words = words_from_user.split()
     words = remove_stopwords(words)
@@ -125,5 +125,13 @@ def query_search(words_from_user):
 
             # Print the result
             print(f"  Doc ID {doc_id}: {clickable_title}, Relevance Score: {relevance_score}")
+            print(url)
+            final_results.append({
+                "Doc_ID": doc_id,
+                "URL": url,
+                "title": title
+            })
+    
+    return final_results
         # else:
             # print(f"  Doc ID {doc_id}: [Title not available], Relevance Score: {relevance_score}, Frequency: {document_scores[doc_id]}")
