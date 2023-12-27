@@ -4,33 +4,30 @@ def create_word_index(input_file,output_file):
     # opening and reading the file
     with open(input_file, 'r') as f:
         json_data = json.load(f)
-
-    word_id = {}
+    try:
+        with open(output_file,'r') as r:
+            reverse_index = json.load(r)
+    except FileNotFoundError:
+        reverse_index = {}        
+    
     for doc_id, data in json_data.items():
         for word, frequency in data['word_frequencies'].items():
-            if word in word_id:
-                word_id[word].append({
+            if word in reverse_index:
+                reverse_index[word].append({
                         "doc_id": int(doc_id),
                         "frequency": frequency,
-                        # "title": data.get("title", ""),  # Include title
-                        # "url": data.get("url", "")      # Include url
                  })
             else:
-                 word_id[word] = [{
+                 reverse_index[word] = [{
                         "doc_id": int(doc_id),
                         "frequency": frequency,
-                        # "title": data.get("title", ""),  # Include title
-                        # "url": data.get("url", "")      # Include url
                  }]
-
-# # Writing the modified reverse index to the output file
+                 
+    # Sort the data based on the "frequency" attribute within each dictionary
+    sorted_data = {word: quicksort(docs) for word, docs in reverse_index.items()}
+    # Save the sorted data to a new file
     with open(output_file, 'w') as f:
-        json.dump(word_id, f, indent=2)
-      #here we are providing the input_file and also the output_file which can vary with the device that 
-      # you are using.  
-input_file='forward_index.json'
-output_file='output.json'
-create_word_index(input_file, output_file)
+        json.dump(sorted_data, f, indent=0)
 
 def quicksort(arr):
     if len(arr) <= 1:
@@ -40,13 +37,3 @@ def quicksort(arr):
     middle = [x for x in arr if x['frequency'] == pivot]
     right = [x for x in arr if x['frequency'] < pivot]
     return quicksort(left) + middle + quicksort(right)
-
-with open('output.json', 'r') as f:
-    data = json.load(f)
-
-# Sort the data based on the "frequency" attribute within each dictionary
-sorted_data = {word: quicksort(docs) for word, docs in data.items()}
-
-# Save the sorted data to a new file
-with open('sorted_output.json', 'w') as f:
-    json.dump(sorted_data, f, indent=2)
