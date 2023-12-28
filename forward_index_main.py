@@ -10,6 +10,7 @@ from nltk.stem import PorterStemmer
 from itertools import count
 from collections import Counter
 
+
 def create_forward_indexing(json_data):
 
     def remove_special_characters(text):
