@@ -1,7 +1,7 @@
-import os
+
 import json
+
 import forward_index_main
-import forward_index_alt
 import reverse_index
 import barrel
 import searching
@@ -29,10 +29,10 @@ while True:
         sub_choice = input("Enter your choice: ")
         if sub_choice == "1":
             folder_path = input("Provide folder path: ")
-            new_forward_index =  forward_index_alt.add_forward_index_through_folder(folder_path)
+            new_forward_index =  forward_index_main.add_forward_index_through_folder(folder_path)
         elif sub_choice == "2":
             file_path = input("Enter file path: ")
-            new_forward_index = forward_index_alt.add_forward_index_through_single_json_file(file_path)
+            new_forward_index = forward_index_main.add_forward_index_through_single_json_file(file_path)
         elif sub_choice == "3":
             continue
         else:
@@ -43,15 +43,14 @@ while True:
         if new_forward_index is not None:
             with open('new_forward_index.json', 'w') as nf:
                 json.dump(new_forward_index, nf, indent=0)
+        else:
+            continue
+        # forward_index_alt.alt_fi()
         
-        forward_index_main.alt_fi()
-        
-        input_file = "forward_index.json"
+        input_file = "new_forward_index.json"
         output_file = "reverse_index.json"
         
-        if os.path.exists(output_file):
-            print(f"Hello")
-            input_file = "new_forward_index.json"
+       
             
         reverse_index.create_word_index(input_file,output_file)
         barrel.complete_barrels(output_file)
