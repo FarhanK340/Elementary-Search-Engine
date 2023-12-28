@@ -64,22 +64,8 @@ def search_word(word_from_user):
     # Return the search results
     return search_results
             
-        # # Display the search results
-        # for word_entry in word_data:
-        #     word = list(word_entry.keys())[0]
-        #     print(f"Occurrences of '{word}' in '{key_to_search}' barrel:")
-
-        #     for doc_info in word_entry[word]:
-        #         doc_id = str(doc_info['doc_id'])
-        #         frequency = doc_info['frequency']
-
-        #         if doc_id in forward_index:
-        #             title = forward_index[doc_id]['title']
-        #             url = forward_index[doc_id]['url']
-
-        #             clickable_title = f"\033]8;;{url}\033\\{title}\033]8;;\033\\"
-        #             print(f"  Doc ID {doc_id}: {clickable_title}, Frequency: {frequency}")
-
+       
+final_results = []
 
 def query_search(words_from_user):
     final_results = []
