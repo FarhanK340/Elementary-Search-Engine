@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 import searching
-import forward_index_main
 import forward_index_alt
+import forward_index_main
 import reverse_index
 import barrel
 import os, json
@@ -30,13 +30,13 @@ def added():
     print(file_path)
     if file_path:
         # Execute your Python script with the provided folder path
-        new_forward_index = forward_index_alt.add_forward_index_through_single_json_file(file_path)
+        new_forward_index = forward_index_main.add_forward_index_through_single_json_file(file_path)
 
         if new_forward_index is not None:
             with open('new_forward_index.json', 'w') as nf:
                 json.dump(new_forward_index, nf, indent=0)
 
-        forward_index_main.alt_fi()
+        forward_index_alt.alt_fi()
 
         input_file = "forward_index.json"
         output_file = "reverse_index.json"

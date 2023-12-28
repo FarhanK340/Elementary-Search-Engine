@@ -6,6 +6,7 @@ import reverse_index
 import barrel
 import searching
 
+
 while True:
 
     print(f"What do you want to do?")
@@ -13,7 +14,7 @@ while True:
     print(f"2. Add Articles")
     print(f"3. Exit")
     choice = input("Enter you choice: ")
-    
+
 
     if choice == "1":
         print(f"Hello!")
