@@ -68,6 +68,7 @@ def search_word(word_from_user):
 final_results = []
 
 def query_search(words_from_user):
+    final_results = []
     words = words_from_user.split()
     words = remove_stopwords(words)
 
@@ -117,7 +118,7 @@ def query_search(words_from_user):
                 "URL": url,
                 "title": title
             })
-    print(final_results)
+    
     return final_results
         # else:
             # print(f"  Doc ID {doc_id}: [Title not available], Relevance Score: {relevance_score}, Frequency: {document_scores[doc_id]}")

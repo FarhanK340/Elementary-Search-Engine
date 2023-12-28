@@ -14,6 +14,7 @@ def index():
 
 @app.route('/search', methods=['POST'])
 def search():
+    results = []
     query = request.form['query']
     results = searching.query_search(query.lower())
     return render_template('results.html', query=query, results=results)

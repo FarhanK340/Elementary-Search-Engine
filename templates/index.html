@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="input.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/input.css') }}">
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Search Engine</title>
 </head>
@@ -15,7 +15,7 @@
             <div
                 class="flex-1 justify-center items-center flex-col relative  w-full shadow-4xl px-20 py-8 bg-gradient-to-b from-slate-200 to-sky-100 rounded-3xl  ">
                 <div class="mb-8 flex justify-center">
-                    <img src="./img/nust-logo-4.2.png" alt="Nust-Logo">
+                    <img src="{{ url_for('static', filename='page/img/nust-logo-4.2.png') }}" alt="Nust-Logo">
                 </div>
                 <div
                     class="flex justify-center w-full rounded-3xl shadow-xl bg-gradient-to-b from-slate-50 to-slate-200">
