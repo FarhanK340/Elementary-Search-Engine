@@ -11,17 +11,8 @@
     <main class="flex items-center justify-center h-screen bg-img">
         <div class="w-5/6 h-full">
             <div class="flex-1 h-full justify-center items-center flex-col relative  w-full shadow-4xl px-20 py-8">
-                <div
-                    class="flex justify-center w-full rounded-3xl shadow-xl bg-gradient-to-b from-slate-100 to-slate-200 mb-8">
-                    <form class="flex w-full rounded-3xl bg-transparent" action="search.html">
-                        <input
-                            class="flex-1 w-full px-4 py-3 text-l mr-0 outline-none bg-transparent rounded-3xl border-none text-black placeholder:text-slate-500"
-                            type="text" placeholder="Search Here">
-                        <button
-                            class="bg-slate-600 opacity-80 text-white outline-none cursor-pointer px-4 py-3 rounded-3xl text-l transition-all hover:opacity-100 hover:text-black ">Search</button>
-                    </form>
-                </div>
-                <h1>{{query}}</h1>
+               
+                <h1 class="text-lg text-slate-900 py-5 px-3">Displaying Results for: {{query}}</h1>
                 <div
                     class="flex justify-center w-full flex-col rounded-xl shadow-xl bg-gradient-to-b from-slate-50 to-slate-200 px-4 py-3">
                     {% for result in results %}
