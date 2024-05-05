@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="input.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Search Engine</title>
+</head>
+
+<body>
+    <main class="flex items-center justify-center bg-img h-screen">
+        <div class="w-2/4">
+            <div
+                class="flex-1 justify-center items-center flex-col relative  w-full shadow-4xl px-20 py-8 bg-gradient-to-b from-slate-400 to-sky-100 rounded-3xl  ">
+                <div class="flex justify-center flex-col">
+                    
+                    <form action="/added" method="post" class="bg-white my-4 px-4 py-3 rounded-md shadow-2xl form-grid" enctype="multipart/form-data">
+                        <label for="file_path" class="block text-gray-700 text-sm font-bold mb-2">File Path:</label>
+                        <input type="text" id="file_path" name="file_path" class="py-2 px-3 border rounded-md w-full mb-3" placeholder="Enter file path">
+                    
+                        <label for="file_upload" class="block text-gray-700 text-sm font-bold mb-2">Upload File:</label>
+                        <input type="file" id="file_upload" name="file_upload" class="py-2 px-3 mb-3">
+                    
+                        <button class="bg-slate-200" type="submit">Add Article</button>
+                    </form>
+                    
+                    <div class="col-span-2 flex justify-center my-4">
+                            <a href="/" class="font-medium text-slate-700 hover:text-black ">Want to search the Articles?</a>
+                        </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
